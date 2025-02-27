@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Task Manager</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
+    />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Actor&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Island+Moments&display=swap"
+      rel="stylesheet"
+    />
+
+    <link rel="stylesheet" href="styles.css" />
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="script.js"></script>
+  </head>
+  <body>
+    <header class="header">
+      <section class="left">
+        <div class="front">V</div>
+        <div class="back"></div>
+        <label>Vista Lab</label>
+      </section>
+      <section class="right">
+        <img src="./assets/profile.png" alt="profile-img" />
+      </section>
+    </header>
+    <main class="main">
+      <h1>Hello, Ayushi, <span>Start planning today</span></h1>
+      <section class="container">
+        <section class="left">
+          <section class="top">
+            <label id="day"></label>
+            <label id="date"></label>
+            <div class="calendar">
+              <div class="calendar__header">
+                <h3 id="monthYear"></h3>
+              </div>
+              <div class="weekdays">
+                <div>Su</div>
+                <div>Mo</div>
+                <div>Tu</div>
+                <div>We</div>
+                <div>Th</div>
+                <div>Fr</div>
+                <div>Sa</div>
+              </div>
+              <div id="dates" class="dates"></div>
+            </div>
+          </section>
+          <section class="bottom">
+            <div class="left">
+              <label>Completed tasks</label>
+              <label id="completedTasks" class="count">04</label>
+            </div>
+            <div class="right">
+              <label>Pending tasks</label>
+              <label id="pendingTasks" class="count">15</label>
+            </div>
+          </section>
+        </section>
+        <section class="right">
+          <form class="form" id="addNewTask">
+            <input
+              required
+              id="taskTitle"
+              type="text"
+              placeholder="Type title of task"
+            />
+            <input
+              required
+              id="taskDesc"
+              type="text"
+              placeholder="Detail of your task"
+            />
+            <button type="submit">+</button>
+          </form>
+          <section class="action-buttons">
+            <section class="left">
+              <span
+                >By category<button
+                  onclick="sortByCategory('asc')"
+                  id="category-asc"
+                  class="up"
+                ></button
+                ><button
+                  onclick="sortByCategory('desc')"
+                  id="category-desc"
+                  class="down"
+                ></button
+              ></span>
+              <span
+                >By date<button
+                  onclick="sortByDate('asc')"
+                  id="date-asc"
+                  class="up"
+                ></button
+                ><button
+                  onclick="sortByDate('desc')"
+                  id="date-desc"
+                  class="down"
+                ></button
+              ></span>
+            </section>
+            <section class="right">
+              <input type="text" onchange="search(this.value)" placeholder="Search by name" />
+              <i class="fa fa-search"></i>
+            </section>
+          </section>
+          <section class="todo-container">
+            <div id="todo-list" class="todo-list">
+              <!-- add cards dynamically -->
+            </div>
+            <button id="load-more" onclick="loadMore()">Load more</button>
+          </section>
+        </section>
+      </section>
+    </main>
+    <footer class="footer">
+      <section class="left">
+        <div class="front">V</div>
+        <div class="back"></div>
+        <label>Vista Lab</label>
+      </section>
+      <section class="middle">
+        <span>&copy;All Rights Reserved.</span>
+      </section>
+      <ul class="right">
+        <li><i class="fa-brands fa-facebook"></i></li>
+        <li><i class="fa-brands fa-linkedin"></i></li>
+        <li><i class="fa-brands fa-twitter"></i></li>
+        <li><i class="fa-brands fa-github"></i></li>
+      </ul>
+    </footer>
+  </body>
+</html>
