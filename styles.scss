@@ -1,12 +1,13 @@
-$bg: rgb(229, 221, 225);
 $island-moments: "Island Moments", cursive;
 $actor: "Actor", serif;
+$inter: "Inter", serif;
+
+$bg: rgb(229, 221, 225);
 $primary-color: rgb(248, 119, 119);
 $secondary-color: rgba(248, 119, 119, 0.5);
 $third-color: rgba(248, 119, 119, 0.3);
 $linen: #f0d1a8;
 $rose: #c4a49f;
-$inter: "Inter", serif;
 
 @mixin circle($h, $w, $background-color) {
   height: $h;

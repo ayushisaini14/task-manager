@@ -64,58 +64,32 @@ function loadMore() {
 }
 
 function generateTasksList() {
-  $("#todo-list").empty();
-
-  for (let i = 0; i < tasksList.length; i++) {
-    const { title, description, startDate, id, completed } = tasksList[i];
-    let taskContainer = $("<div>");
-    let taskLeftContainer = $("<div>");
-    let taskRightContainer = $("<div>");
-    let taskTitle = $("<h4>").text(title);
-    let taskDesc = $("<span>").text(description);
-    let taskStartDate = $("<h4>").text(`Start Date: ${startDate}`);
-    let taskCompleted = $("<button>")
-      .html('<i class="fa-solid fa-check-circle"></i>')
-      .on("click", () => {
-        taskContainer.addClass("completed");
-        tasksList[i].completed = true;
-        setCompletedPending();
-      });
-    let taskEdit = $("<button>")
-      .html('<i class="fa-solid fa-pen-to-square"></i>')
-      .on("click", () => {
-        $("#taskTitle").val(title);
-        $("#taskDesc").val(description);
-        taskToUpdate = id;
-      });
-    let taskDelete = $("<button>")
-      .html('<i class="fa-solid fa-trash"></i>')
-      .on("click", () => {
-        tasksMainList = tasksMainList.filter((data) => data.id !== id);
-        tasksList = tasksMainList.slice(0, 4);
-        generateTasksList();
-      });
-
-    taskLeftContainer.append(taskTitle);
-    taskLeftContainer.append(taskDesc);
-    taskLeftContainer.append(taskStartDate);
-    taskLeftContainer.addClass("left");
-
-    taskRightContainer.append(taskCompleted);
-    taskRightContainer.append(taskEdit);
-    taskRightContainer.append(taskDelete);
-    taskRightContainer.addClass("right");
-
-    taskContainer.append(taskLeftContainer);
-    taskContainer.append(taskRightContainer);
-    taskContainer.addClass("container");
-
-    if (completed) {
-      taskContainer.addClass("completed");
-    }
-
-    $("#todo-list").append(taskContainer);
-  }
+  $("#todo-list").html(
+    tasksList
+      .map(
+        (task) => `
+          <div class="container ${task.completed ? "completed" : ""}">
+          <div class="left">
+            <h4>${task.title}</h4>
+            <span>${task.description}</span>
+            <h4>Start Date: ${task.startDate}</h4>
+          </div>
+          <div class="right">
+           <button onclick="completeTask(${
+             task.id
+           })"><i class="fa-solid fa-check-circle"></i></button>
+              <button onclick="editTask(${
+                task.id
+              })"><i class="fa-solid fa-pen-to-square"></i></button>
+              <button onclick="deleteTask(${
+                task.id
+              })"><i class="fa-solid fa-trash"></i></button>
+           </div>
+          </div>
+        `
+      )
+      .join("")
+  );
 }
 
 function sortByCategory(orderby) {
@@ -249,4 +223,23 @@ function updateTask() {
 
   $("#taskTitle").val("");
   $("#taskDesc").val("");
+}
+
+function completeTask(id) {
+  $(`#todo-list .container:nth-of-type(${id})`).addClass("completed");
+  tasksList.find((rec) => rec.id === id).completed = true;
+  setCompletedPending();
+}
+
+function editTask(id) {
+  const { title, description } = tasksList.find((rec) => rec.id === id);
+  $("#taskTitle").val(title);
+  $("#taskDesc").val(description);
+  taskToUpdate = id;
+}
+
+function deleteTask(id) {
+  tasksMainList = tasksMainList.filter((data) => data.id !== id);
+  tasksList = tasksMainList.slice(0, 4);
+  generateTasksList();
 }
